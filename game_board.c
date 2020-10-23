@@ -30,8 +30,7 @@ void read_game_board(game_board * game) {
         }
 }
 
-void print_game_board(game_board * game, int index) {
-    printf("Instancia %d\n", index);
+void print_game_board(game_board * game) {
     for(int i = 0; i < game->line_num; i++) {
         for(int j = 0; j < game->col_num; j++) 
             printf("%c ", game->table[i][j].c);

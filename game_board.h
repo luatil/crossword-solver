@@ -24,5 +24,5 @@ game_board * create_empty_game_board(int M, int N);
 void read_game_board(game_board * game);
 void free_game_board(game_board * game);
 
-void print_game_board(game_board * game, int index);
+void print_game_board(game_board * game);
 #endif // GAME_BOARD_H

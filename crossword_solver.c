@@ -118,7 +118,7 @@ bool crossword_solver(game_board * game, list_of_words * word_list, game_move * 
     while(!finished_searching) {
         
         if(PRINT_MOVES)
-            print_game_board(game, 0);
+            print_game_board(game);
 
         current_move = next_game_move(game, current_move, list_of_horizontal_moves, list_of_vertical_moves);
 
@@ -128,10 +128,12 @@ bool crossword_solver(game_board * game, list_of_words * word_list, game_move * 
         else if(is_move_possible(game, word_list, &current_move)) {
 
             make_move(game, word_list, &current_move, stack_of_moves);
+
             if(is_horizontal(current_move)) 
                 list_of_horizontal_moves[current_move.index].filled = true;
             else  
                 list_of_vertical_moves[current_move.index].filled = true;
+
         }
         // If I tested all the words on the first position and none of them were able to solve the board. The board is not solvable.
         else if(pilhaVazia(stack_of_moves) && current_move.word_index == -1) {
@@ -139,11 +141,14 @@ bool crossword_solver(game_board * game, list_of_words * word_list, game_move * 
             game->is_solved = false;
         }
         else if(current_move.word_index == -1){
+
             if(is_horizontal(current_move)) 
                 list_of_horizontal_moves[current_move.index].filled = false;
             else  
                 list_of_vertical_moves[current_move.index].filled = false;
+
             unmake_move(game, word_list, &current_move, stack_of_moves);
+
             if(is_horizontal(current_move)) 
                 list_of_horizontal_moves[current_move.index].filled = false;
             else  
