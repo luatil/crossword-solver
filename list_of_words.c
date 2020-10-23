@@ -19,9 +19,14 @@ list_of_words * create_empty_list_of_words(int number_of_words, int max_word_siz
         fprintf(stderr, "Failed to allocate word_list->lst\n");
         exit(-1);
     }
-    //for(int i = 0; i < number_of_words; i++) 
-    //    word_list->lst[i].ch = malloc(max_word_size * sizeof(char));
+
+    for(int i = 0; i < number_of_words; i++) {
+        word_list->lst[i].ch = malloc(max_word_size * sizeof(char));
+        word_list->lst[i].is_used = false;
+    }
+
     word_list->list_length = number_of_words;
+    word_list->max_word_size = max_word_size;
     return word_list;
 }
 
@@ -38,6 +43,9 @@ void read_list_of_words(list_of_words * word_list) {
 
 // This is also not tested, I think to way to do it is with valgrind after production 
 void free_list_of_words(list_of_words * word_list) {
+    for(int i = 0; i < word_list->list_length; i++) {
+        free(word_list->lst[i].ch);
+    }
     free(word_list->lst);
     free(word_list);
 }

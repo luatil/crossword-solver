@@ -26,18 +26,17 @@ game_move * horizontal_moves_builder(game_board * game, int number_of_horizontal
                 }
                 // I think I could make this better in some way 
                 temp_game_move.move_size = game_move_size;
+                temp_game_move.filled = false;
                 temp_game_move.alignment = 0;
                 temp_game_move.initial_line = i;
                 temp_game_move.initial_column = aux_j;
                 temp_game_move.word_index = 0;
                 temp_game_move.index = index_of_horizontal_move;
-                //temp_game_move.index_on_array = index_of_horizontal_move;
-                //asdfasdfasdfasdf
 
                 horizontal_moves[index_of_horizontal_move] = temp_game_move;
                 index_of_horizontal_move++;
                 // why is this working them?
-                if(game->table[i][j].is_black) game->table[i][j].member_of_horizontal_move = -1;
+                if(j < game->col_num && game->table[i][j].is_black) game->table[i][j].member_of_horizontal_move = -1;
             }
         }
 
@@ -71,6 +70,7 @@ game_move * vertical_moves_builder(game_board * game, int number_of_vertical_mov
                 }
                 // I think I could make this better in some way 
                 temp_game_move.move_size = game_move_size;
+                temp_game_move.filled = false;
                 temp_game_move.alignment = 1;
                 temp_game_move.initial_line = aux_i;
                 temp_game_move.initial_column = j;
@@ -87,6 +87,10 @@ game_move * vertical_moves_builder(game_board * game, int number_of_vertical_mov
     }
     game->vertical_move_num = index_of_vertical_move;
     return vertical_moves;
+}
+
+void free_list_of_game_moves(game_move * list_of_moves) {
+    free(list_of_moves);
 }
 
 bool is_horizontal(game_move gm) {
@@ -173,4 +177,28 @@ void vertical_adjacency_list_builder(game_board * game, game_move * list_of_move
         }
     }
 
+}
+
+
+void free_adjacency_list(game_move * list_of_allocated_moves, int number_of_moves) {
+    for(int i = 0; i < number_of_moves; i++) {
+        free(list_of_allocated_moves[i].list_of_intersecting_moves);
+    }
+}
+
+void print_move(game_move gm) {
+    printf("Game Move Size: %d\n", gm.move_size);
+    printf("Game Move Align: %d\n", gm.alignment);
+    printf("Game Move i: %d\n", gm.initial_line);
+    printf("Game Move j: %d\n", gm.initial_column);
+    printf("Game Move Filled: %d\n", gm.filled);
+    printf("Game Move Word Index: %d\n", gm.word_index);
+}
+
+void print_move_vector(game_move * gms, int size) {
+    for(int i = 1; i < size; i++) {
+        printf("Game Move Index: %d\n", i);
+        print_move(gms[i]);
+        printf("\n");
+    }
 }

@@ -25,12 +25,17 @@ bool is_horizontal(game_move gm);
 game_move * horizontal_moves_builder(game_board * game, int number_of_horizontal_moves);
 game_move * vertical_moves_builder(game_board * game, int number_of_vertical_moves);
 
+void free_list_of_game_moves(game_move * list_of_moves);
+
 void fill_game_move(game_board * game, game_move gm, list_of_words * word_list);
 void empty_game_move(game_board * game, game_move gm);
 
 void horizontal_adjacency_list_builder(game_board * game, game_move * list_of_moves);
 void vertical_adjacency_list_builder(game_board * game, game_move * list_of_moves);
-// TODO create a dealocator
 
+void free_adjacency_list(game_move * list_of_allocated_moves, int number_of_moves);
 
+// For debugging 
+void print_move(game_move gm);
+void print_move_vector(game_move * gms, int size);
 #endif // GAME_MOVE_H

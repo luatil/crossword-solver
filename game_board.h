@@ -25,4 +25,5 @@ void read_game_board(game_board * game);
 void free_game_board(game_board * game);
 
 void print_game_board(game_board * game);
+void print_adjacency(game_board * game);
 #endif // GAME_BOARD_H

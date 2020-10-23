@@ -1,5 +1,5 @@
+#include <stdio.h>
 #include "crossword_solver.h"
-
 
 #define debug(x) printf("Alignment: %d\n", x.alignment); printf("Move size: %d\n", x.move_size); for(int i = 0; i < x.index_of_last_intersecting_move; i++) { printf("%d ", x.list_of_intersecting_moves[i]);} printf("\n");
 #define here printf("here\n");
@@ -31,10 +31,9 @@ game_move next_game_move(game_board * game, game_move current_move, game_move * 
 
     // If all the horizontal moves are also filled, we search for the first non filled vertical move
     for(int i = 0; i < game->vertical_move_num; i++) {
-        if(!list_of_horizontal_moves[i].filled) 
-            return list_of_horizontal_moves[i];
+        if(!list_of_vertical_moves[i].filled) 
+            return list_of_vertical_moves[i];
     }
-
 
     // If all of them are filled it means that the board is solved
     game->is_solved = true;
@@ -103,22 +102,39 @@ void unmake_move(game_board* game, list_of_words *word_list, game_move * current
     current_game_move->word_index++;
     current_game_move->filled = false;
     if(!pilhaVazia(stack_of_moves))
-        fill_game_move(game, topoDaPilha(stack_of_moves), word_list);
+        /*
+        Another way to do this would be to traverse only on the ones that intersect and are filled, 
+        but this would require passing both horizontal and vertical list of moves
+        */
+        for(int i = 0; i < stack_of_moves->topo; i++) {
+            fill_game_move(game, stack_of_moves->v[i], word_list);
+        }
 }
+
 
 bool crossword_solver(game_board * game, list_of_words * word_list, game_move * list_of_horizontal_moves, game_move * list_of_vertical_moves) {
 
     int total_number_of_moves = game->horizontal_move_num + game->vertical_move_num;
     pilha * stack_of_moves = criaPilha(total_number_of_moves);
-
     bool finished_searching = false;
 
-    game_move current_move = list_of_horizontal_moves[0];
+    game_move current_move;
+
+    if(game->horizontal_move_num > 0)
+        current_move = list_of_horizontal_moves[0];
+    else if(game->vertical_move_num > 0)
+        current_move = list_of_vertical_moves[0];
+    else  {
+        game->is_solved = true;
+        finished_searching = true;
+    }
 
     while(!finished_searching) {
         
-        if(PRINT_MOVES)
+        if(PRINT_MOVES) {
             print_game_board(game);
+            printf("\n");
+        }
 
         current_move = next_game_move(game, current_move, list_of_horizontal_moves, list_of_vertical_moves);
 
@@ -155,6 +171,8 @@ bool crossword_solver(game_board * game, list_of_words * word_list, game_move * 
                 list_of_vertical_moves[current_move.index].filled = false;
         }
     }
+
+    destroiPilha(stack_of_moves);
 
     return game->is_solved; 
 }

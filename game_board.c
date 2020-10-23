@@ -15,11 +15,13 @@ game_board * create_empty_game_board(int M, int N) {
 
 void read_game_board(game_board * game) {
     int aux;
+    game->is_solved = false;
     for(int i = 0; i < game->line_num; i++)
         for(int j = 0; j < game->col_num; j++) {
             scanf("%d", &aux);
             if(aux == 0) {
                 game->table[i][j].is_used = 0;
+                game->table[i][j].is_black = 0;
                 game->table[i][j].c = '-';
             } else  {
                 game->table[i][j].member_of_horizontal_move = -1;
@@ -32,10 +34,32 @@ void read_game_board(game_board * game) {
 
 void print_game_board(game_board * game) {
     for(int i = 0; i < game->line_num; i++) {
-        for(int j = 0; j < game->col_num; j++) 
-            printf("%c ", game->table[i][j].c);
+        for(int j = 0; j < game->col_num; j++) {
+            printf("%c", game->table[i][j].c);
+            if(j < game->col_num -1) 
+                printf(" ");
+        }
         printf("\n");
     }
+}
+
+void print_adjacency(game_board * game)  {
+
+    for(int i = 0; i < game->line_num; i++) {
+        for(int j = 0; j < game->col_num; j++) {
+            printf("%2d ", game->table[i][j].member_of_horizontal_move);
+        }
+        printf("\n");
+    }
+
+    printf("\n");
+    for(int i = 0; i < game->line_num; i++) {
+        for(int j = 0; j < game->col_num; j++) {
+            printf("%2d ", game->table[i][j].member_of_vertical_move);
+        }
+        printf("\n");
+    }
+
 }
 
 void free_game_board(game_board * game) {
