@@ -17,7 +17,7 @@ typedef struct {
     // this allows for a vector like push_back
     int index_of_last_intersecting_move;
     bool filled;
-    //int index_on_array;
+    int index;
 } game_move;
 
 bool is_horizontal(game_move gm);

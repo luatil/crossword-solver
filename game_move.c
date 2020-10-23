@@ -30,6 +30,9 @@ game_move * horizontal_moves_builder(game_board * game, int number_of_horizontal
                 temp_game_move.initial_line = i;
                 temp_game_move.initial_column = aux_j;
                 temp_game_move.word_index = 0;
+                temp_game_move.index = index_of_horizontal_move;
+                //temp_game_move.index_on_array = index_of_horizontal_move;
+                //asdfasdfasdfasdf
 
                 horizontal_moves[index_of_horizontal_move] = temp_game_move;
                 index_of_horizontal_move++;
@@ -72,6 +75,7 @@ game_move * vertical_moves_builder(game_board * game, int number_of_vertical_mov
                 temp_game_move.initial_line = aux_i;
                 temp_game_move.initial_column = j;
                 temp_game_move.word_index = 0;
+                temp_game_move.index = index_of_vertical_move;
 
                 vertical_moves[index_of_vertical_move] = temp_game_move;
                 index_of_vertical_move++;
@@ -116,6 +120,8 @@ void empty_game_move(game_board * game, game_move gm) {
         }
     }
 }
+
+
 
 void horizontal_adjacency_list_builder(game_board * game, game_move * list_of_moves) {
     bool is_vertical = list_of_moves[0].alignment;
