@@ -21,7 +21,7 @@ list_of_words * create_empty_list_of_words(int number_of_words, int max_word_siz
     }
 
     for(int i = 0; i < number_of_words; i++) {
-        word_list->lst[i].ch = malloc(max_word_size * sizeof(char));
+        word_list->lst[i].ch = malloc(max_word_size * sizeof(char) + 1);
         word_list->lst[i].is_used = false;
     }
 

@@ -44,10 +44,13 @@ int main() {
 
         // Print the board if solvable
         printf("Instancia %d\n", iteration_index);
-        if(game->is_solved)
+        if(game->is_solved) {
             print_game_board(game);
+        }
         else 
             printf("nao ha solucao\n");
+
+        printf("\n");
 
         iteration_index++;
 

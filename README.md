@@ -1,4 +1,4 @@
-# README
+#README
 
 This is a crossword puzzle solver. It has the following form of input: 
 
@@ -105,9 +105,8 @@ Represents a stack with 2 elements, where h3:5 was made before v3:4.
 
 But even though a sequence of horizontal and vertical plays is all that is required to 
 describe a game. We keep a variation on the matrix type representation above. This
-is done such that we can build an adjacency matrix ???? adjacency list of the intersection between horizontal and vertical moves. Reducing the amount of comparisons we need to make. 
-But the specifics are better explained in the implementation section. 
-
+is done such that we can build an adjacency list of the intersection between horizontal and vertical moves. 
+Reducing the amount of comparisons we need to make for each move.
 
 The general idea of the solution is to implement a backtracking algorithm. That tries a play, and proceeds with the intersecting plays if they are possible, and backtracks if they are not. 
 
@@ -316,5 +315,3 @@ our last board.
 Now we have exhausted all the possibilities for the first move. Since none of them 
 were able to fill the board. We can be sure that the board cannot be completed
 with our current list of words. 
-
-## Implementation details
