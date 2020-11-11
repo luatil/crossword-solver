@@ -1,4 +1,4 @@
-#README
+# README
 
 This is a crossword puzzle solver. It has the following form of input: 
 
